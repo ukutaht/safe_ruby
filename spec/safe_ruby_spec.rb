@@ -12,8 +12,8 @@ describe SafeRuby do
 		end
 
 		it 'does not allow malicious operations' do
-			expect{ SafeRuby.eval("system('ls')") }.to raise_error
-			expect{ SafeRuby.eval("`ls`") }.to raise_error
+			expect{ SafeRuby.eval("system('rm *')") }.to raise_error
+			expect{ SafeRuby.eval("`rm *`") }.to raise_error
 			expect{ SafeRuby.eval("Kernel.abort") }.to raise_error
 		end
 	end
