@@ -7,6 +7,10 @@ describe SafeRuby do
 			expect{ SafeRuby.eval("[4, 5].map{|n| n+1}") }.to_not raise_error
 		end
 
+		it 'returns correct object' do
+			SafeRuby.eval('[1,2,3]').should eq [1,2,3]
+		end
+
 		it 'does not allow malicious operations' do
 			expect{ SafeRuby.eval("system('ls')") }.to raise_error
 			expect{ SafeRuby.eval("`ls`") }.to raise_error

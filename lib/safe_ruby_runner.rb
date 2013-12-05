@@ -24,6 +24,7 @@ class SafeRuby
       process.start
       process.wait
       write.close
+      temp.unlink
     end
 
     data = read.read
