@@ -6,6 +6,11 @@ Creating this environment is largery based on jruby sandbox, whitelisting the me
 dangerous classes. Constants are also whitelisted, eliminating some core ruby functionality such as spawning
 another process.
 
+Getting Started
+==============
+
+Run `gem install safe_ruby` in your terminal, then `require 'safe_ruby'` in your app and you're ready to go.
+
 Examples
 ========
 
