@@ -1,3 +1,4 @@
+MAKE_SAFE_CODE = <<-STRING
 def keep_singleton_methods(klass, singleton_methods)
   klass = Object.const_get(klass)
   singleton_methods = singleton_methods.map(&:to_sym)
@@ -19,23 +20,22 @@ def keep_methods(klass, methods)
 end
 
 def clean_constants
-  (Object.constants - ALLOWED_CONSTANTS).each do |const|
+  (Object.constants - #{ALLOWED_CONSTANTS}).each do |const|
     Object.send(:remove_const, const) if defined?(const)
   end
 end
 
-MAKESAFE = <<-STRING
-keep_singleton_methods(:Kernel, KERNEL_S_METHODS)
-keep_singleton_methods(:Symbol, SYMBOL_S_METHODS)
-keep_singleton_methods(:String, STRING_S_METHODS)
-keep_singleton_methods(:IO, IO_S_METHODS)
+keep_singleton_methods(:Kernel, #{KERNEL_S_METHODS})
+keep_singleton_methods(:Symbol, #{SYMBOL_S_METHODS})
+keep_singleton_methods(:String, #{STRING_S_METHODS})
+keep_singleton_methods(:IO, #{IO_S_METHODS})
 
-keep_methods(:Kernel, KERNEL_METHODS)
-keep_methods(:NilClass, NILCLASS_METHODS)
-keep_methods(:TrueClass, TRUECLASS_METHODS)
-keep_methods(:FalseClass, FALSECLASS_METHODS)
-keep_methods(:Enumerable, ENUMERABLE_METHODS)
-keep_methods(:String, STRING_METHODS)
+keep_methods(:Kernel, #{KERNEL_METHODS})
+keep_methods(:NilClass, #{NILCLASS_METHODS})
+keep_methods(:TrueClass, #{TRUECLASS_METHODS})
+keep_methods(:FalseClass, #{FALSECLASS_METHODS})
+keep_methods(:Enumerable, #{ENUMERABLE_METHODS})
+keep_methods(:String, #{STRING_METHODS})
 Kernel.class_eval do
  def `(*args)
    raise NoMethodError, "` is unavailable"
