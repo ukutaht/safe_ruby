@@ -38,7 +38,7 @@ class SafeRuby
     begin
       Marshal.load(data)
     rescue => e 
-      raise EvalError.new(data)
+      raise data
     end
   end
 
@@ -49,12 +49,8 @@ class SafeRuby
     file = Tempfile.new('saferuby')
     file.write(MAKE_SAFE_CODE)
     file.write <<-STRING
-      begin
-        result = eval('#{@code}')
-        print Marshal.dump(result)
-      rescue => e
-        print e.message
-      end
+      result = eval('#{@code}')
+      print Marshal.dump(result)
     STRING
     file.rewind
     file
