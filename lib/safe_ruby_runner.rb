@@ -4,18 +4,15 @@ end
 
 class SafeRuby
   DEFAULTS = { timeout: 5 }
+  
   def initialize(code, options={})
     @code = code
-    options = options.merge(DEFAULTS)
+    options = DEFAULTS.merge(options)
     @timeout = options[:timeout]
   end
 
-  def self.eval(code)
-    new(code).eval
-  end
-
-  def self.check(code, expected)
-    eval(code) == eval(expected)
+  def self.eval(code, options={})
+    new(code, options).eval
   end
 
   def eval
@@ -27,8 +24,9 @@ class SafeRuby
       process.start
       begin
         process.poll_for_exit(@timeout)
-      rescue ChildProcess::TimeoutError
+      rescue ChildProcess::TimeoutError => e
         process.stop # tries increasingly harsher methods to kill the process.
+        return e
       end
       write.close
       temp.unlink
@@ -41,6 +39,11 @@ class SafeRuby
       raise data
     end
   end
+
+  def self.check(code, expected)
+    eval(code) == eval(expected)
+  end
+
 
   private
 

@@ -17,8 +17,20 @@ describe SafeRuby do
 			expect{ SafeRuby.eval("Kernel.abort") }.to raise_error
 		end
 
-		it 'times out' do
-			expect{ SafeRuby.eval('loop {}') }.to raise_error
+
+		it 'defaults to a 5 second timeout' do
+			time = Benchmark.realtime do
+				SafeRuby.eval('(1..100000).map {|n| n**100}')
+			end
+			time.should be_within(0.5).of(5)
 		end
+
+		it 'allows custom timeout' do
+			time = Benchmark.realtime do
+				SafeRuby.eval('(1..100000).map {|n| n**100}', timeout: 1)
+			end
+			time.should be_within(0.5).of(1)
+		end
+		
 	end
 end
