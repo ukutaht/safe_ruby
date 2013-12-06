@@ -3,8 +3,11 @@ class EvalError < StandardError
 end
 
 class SafeRuby
-  def initialize(code)
+  DEFAULTS = { timeout: 5 }
+  def initialize(code, options={})
     @code = code
+    options = options.merge(DEFAULTS)
+    @timeout = options[:timeout]
   end
 
   def self.eval(code)
@@ -22,7 +25,11 @@ class SafeRuby
       process.io.stdout = write
       process.io.stderr = write
       process.start
-      process.wait
+      begin
+        process.poll_for_exit(@timeout)
+      rescue ChildProcess::TimeoutError
+        process.stop # tries increasingly harsher methods to kill the process.
+      end
       write.close
       temp.unlink
     end

@@ -16,5 +16,9 @@ describe SafeRuby do
 			expect{ SafeRuby.eval("`rm *`") }.to raise_error
 			expect{ SafeRuby.eval("Kernel.abort") }.to raise_error
 		end
+
+		it 'times out' do
+			expect{ SafeRuby.eval('loop {}') }.to raise_error
+		end
 	end
 end
