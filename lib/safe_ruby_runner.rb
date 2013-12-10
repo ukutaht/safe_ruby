@@ -4,7 +4,7 @@ end
 
 class SafeRuby
   DEFAULTS = { timeout: 5 }
-  
+
   def initialize(code, options={})
     @code = code
     options = DEFAULTS.merge(options)
@@ -35,7 +35,7 @@ class SafeRuby
     data = read.read
     begin
       Marshal.load(data)
-    rescue => e 
+    rescue => e
       raise data
     end
   end
