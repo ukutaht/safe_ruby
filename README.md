@@ -24,12 +24,18 @@ Evaluating ruby code
   SafeRuby.eval('Kernel.abort')                #=> undefined method `abort' for Kernel:Module
 ```
 
+Default timeout for evaluating is 5 seconds, but this can be specified.
+
+```ruby
+  SafeRuby.eval('loop{}')                      #<ChildProcess::TimeoutError: process still alive after 5 seconds>
+  
+  SafeRuby.eval('loop{}', timeout: 1)          #<ChildProcess::TimeoutError: process still alive after 1 seconds>
+```
+
 This library was built for a codeacademy-style tutoring app, so checking answers is built into the SafeRuby class
 
 ```ruby
-
   SafeRuby.check('[1,2,3].map{ |n| n + 1 }', '[2,3,4]')  #=> true
-  
 ```
 
 In this example, the second argument(expected answer) can also be untrusted, it will be run safely. 
