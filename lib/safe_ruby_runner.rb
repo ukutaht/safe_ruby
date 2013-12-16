@@ -7,11 +7,11 @@ class SafeRuby
                raise_errors: true }
 
   def initialize(code, options={})
-    @code = code
     options = DEFAULTS.merge(options)
 
+    @code         = code
     @raise_errors = options[:raise_errors]
-    @timeout = options[:timeout]
+    @timeout      = options[:timeout]
   end
 
   def self.eval(code, options={})
