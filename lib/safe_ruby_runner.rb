@@ -3,11 +3,14 @@ class EvalError < StandardError
 end
 
 class SafeRuby
-  DEFAULTS = { timeout: 5 }
+  DEFAULTS = { timeout: 5,
+               raise_errors: true }
 
   def initialize(code, options={})
     @code = code
     options = DEFAULTS.merge(options)
+
+    @raise_errors = options[:raise_errors]
     @timeout = options[:timeout]
   end
 
@@ -36,7 +39,11 @@ class SafeRuby
     begin
       Marshal.load(data)
     rescue => e
-      raise data
+      if @raise_errors
+        raise data
+      else
+        return data
+      end
     end
   end
 
@@ -52,7 +59,7 @@ class SafeRuby
     file = Tempfile.new('saferuby')
     file.write(MAKE_SAFE_CODE)
     file.write <<-STRING
-      result = eval('#{@code}')
+      result = eval(%q(#{@code}))
       print Marshal.dump(result)
     STRING
     file.rewind
