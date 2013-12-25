@@ -29,7 +29,7 @@ class SafeRuby
         process.poll_for_exit(@timeout)
       rescue ChildProcess::TimeoutError => e
         process.stop # tries increasingly harsher methods to kill the process.
-        return e
+        return e.message
       end
       write.close
       temp.unlink
