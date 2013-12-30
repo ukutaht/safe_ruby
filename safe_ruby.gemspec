@@ -1,6 +1,11 @@
+# coding: utf-8
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'ruby_doc_scraper/version'
+
 Gem::Specification.new do |s|
   s.name        = 'safe_ruby'
-  s.version     = '1.0.1'
+  s.version     = RubyDocScraper::VERSION
   s.date        = '2013-12-04'
   s.summary     = "Run untrusted ruby code in a safe environment"
   s.description = "Evaluates ruby code by writing it to a tempfile and spawning a child process. Uses a whitelist of methods and constants to keep, for example one cannot run system commands in the environment created by this gem. The environment created by the untrusted code does not leak out into the parent process."
