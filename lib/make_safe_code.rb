@@ -16,7 +16,7 @@ def keep_methods(klass, methods)
   undef_methods = (klass.methods(false) - methods)
   undef_methods.each do |method|
     klass.send(:undef_method, method)
-  end  
+  end
 end
 
 def clean_constants
