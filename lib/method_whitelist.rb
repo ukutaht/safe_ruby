@@ -1,41 +1,41 @@
 IO_S_METHODS = %w[
-	new
-	foreach
-	open
+  new
+  foreach
+  open
 ]
 
 KERNEL_S_METHODS = %w[
-	Array
-	binding
-	block_given?
-	catch
-	chomp
-	chomp!
-	chop
-	chop!
-	eval
-	fail
-	Float
-	format
-	global_variables
-	gsub
-	gsub!
-	Integer
-	iterator?
-	lambda
-	local_variables
-	loop
-	method_missing
-	proc
-	raise
-	scan
-	split
-	sprintf
-	String
-	sub
-	sub!
-	throw
-	].freeze
+  Array
+  binding
+  block_given?
+  catch
+  chomp
+  chomp!
+  chop
+  chop!
+  eval
+  fail
+  Float
+  format
+  global_variables
+  gsub
+  gsub!
+  Integer
+  iterator?
+  lambda
+  local_variables
+  loop
+  method_missing
+  proc
+  raise
+  scan
+  split
+  sprintf
+  String
+  sub
+  sub!
+  throw
+  ].freeze
 
 SYMBOL_S_METHODS = %w[
 all_symbols

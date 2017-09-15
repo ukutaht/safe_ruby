@@ -1,3 +1,5 @@
+require 'tempfile'
+
 class EvalError < StandardError
   def initialize(msg); super; end
 end
@@ -55,7 +57,6 @@ class SafeRuby
   private
 
   def build_tempfile
-    require 'tempfile'
     file = Tempfile.new('saferuby')
     file.write(MAKE_SAFE_CODE)
     file.write <<-STRING
