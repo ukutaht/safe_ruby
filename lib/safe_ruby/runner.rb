@@ -1,4 +1,5 @@
 require 'tempfile'
+require 'rspec'
 
 class EvalError < StandardError
   def initialize(msg); super; end
@@ -53,7 +54,10 @@ class SafeRuby
     eval(code) == eval(expected)
   end
 
-
+  def self.run_spec(spec)
+    eval(spec)
+  end 
+  
   private
 
   def build_tempfile
