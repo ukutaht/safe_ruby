@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.test_files     = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.require_paths = ["lib"]
 
-  s.add_runtime_dependency 'childprocess', '>= 0.3.9'
+  s.add_runtime_dependency 'childprocess', '>= 5.0.0'
 
   s.add_development_dependency 'pry'
   s.add_development_dependency 'rake'

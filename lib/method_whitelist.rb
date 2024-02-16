@@ -42,7 +42,6 @@ all_symbols
 ].freeze
 
 STRING_S_METHODS = %w[
-new
 ].freeze
 
 KERNEL_METHODS = %w[
